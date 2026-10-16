@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks - Task Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Dark Navigation Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-logo" title="Task Manager UI">
+                    <span class="logo-text">UI</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" title="Dashboard" id="navHome">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                </button>
+                <button class="nav-item" title="Performance & Analytics" id="navAnalytics">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                </button>
+                <button class="nav-item" title="Task Distribution" id="navReports">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                        <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                    </svg>
+                </button>
+                <button class="nav-item" title="Archived Tasks" id="navArchive">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="21 8 21 21 3 21 3 8"/>
+                        <rect x="1" y="3" width="22" height="5"/>
+                        <line x1="10" y1="12" x2="14" y2="12"/>
+                    </svg>
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="nav-item" id="themeToggleBtn" title="Toggle Theme">
+                    <svg id="themeIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                    </svg>
+                </button>
+                <button class="nav-item" title="Settings" id="navSettings">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Body Area -->
+        <main class="main-content">
+            <!-- Top Utility Bar -->
+            <header class="top-header">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" id="globalSearchInput" placeholder="Search tasks, descriptions, assignees..." />
+                    <button class="clear-search-btn" id="clearSearchBtn" title="Clear search" style="display:none;">&times;</button>
+                </div>
+
+                <div class="user-profile-group">
+                    <button class="icon-button notification-btn" title="Notifications" id="notificationBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                        </svg>
+                        <span class="notification-badge" id="notificationBadge">3</span>
+                    </button>
+
+                    <div class="user-avatar-badge" title="Maia Burjanadze">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="User avatar" class="avatar-img" />
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Card Container -->
+            <div class="content-card">
+                <!-- Page Title -->
+                <div class="page-title-row">
+                    <h1 class="page-title">My Tasks</h1>
+                </div>
+
+                <!-- Navigation Tabs (Matching Mockup: Assigned, Accepted, Review) -->
+                <div class="category-tabs">
+                    <button class="tab-btn" data-category="assigned" id="tabAssigned">
+                        Assigned Tasks <span class="tab-badge" id="countAssigned">0</span>
+                    </button>
+                    <button class="tab-btn active" data-category="accepted" id="tabAccepted">
+                        Accepted Tasks <span class="tab-badge" id="countAccepted">0</span>
+                    </button>
+                    <button class="tab-btn" data-category="review" id="tabReview">
+                        Review Tasks <span class="tab-badge" id="countReview">0</span>
+                    </button>
+                    <button class="tab-btn" data-category="all" id="tabAll">
+                        All Tasks <span class="tab-badge" id="countAll">0</span>
+                    </button>
+                </div>
+
+                <!-- Action Toolbar: Date, Status, Filter, and + Create New Task -->
+                <div class="action-toolbar">
+                    <div class="filters-left">
+                        <!-- Date Filter Pill -->
+                        <div class="filter-pill date-filter-pill">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <input type="date" id="dateFilterInput" title="Filter by Due Date" />
+                            <span class="date-display-label" id="dateDisplayLabel">Choose Date</span>
+                        </div>
+
+                        <!-- Choose Status Dropdown Pill -->
+                        <div class="filter-pill select-pill">
+                            <select id="statusFilterSelect">
+                                <option value="all">Choose Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="in_progress">In progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+
+                        <!-- Choose Priority Dropdown Pill -->
+                        <div class="filter-pill select-pill">
+                            <select id="priorityFilterSelect">
+                                <option value="all">Choose Priority</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                            <svg class="select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+
+                        <!-- Purple Filter Button -->
+                        <button class="btn btn-filter" id="applyFilterBtn">
+                            Filter
+                        </button>
+
+                        <!-- Reset Filter Button -->
+                        <button class="btn btn-ghost" id="resetFilterBtn" title="Reset all filters">
+                            Reset
+                        </button>
+                    </div>
+
+                    <!-- + Create New Task Button -->
+                    <div class="actions-right">
+                        <button class="btn btn-create" id="openCreateModalBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            <span>Create New Task</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Overdue Alert Ribbon (Dynamic) -->
+                <div class="alert-ribbon" id="overdueRibbon" style="display:none;">
+                    <span class="ribbon-icon">⚠️</span>
+                    <span class="ribbon-text" id="overdueRibbonText">You have 0 overdue tasks requiring attention.</span>
+                    <button class="btn-link" id="viewOverdueBtn">View Overdue</button>
+                </div>
+
+                <!-- Table Content Container -->
+                <div class="table-responsive">
+                    <table class="tasks-table" id="tasksTable">
+                        <thead>
+                            <tr>
+                                <th class="th-title">Title</th>
+                                <th class="th-priority">Priority</th>
+                                <th class="th-status">Status</th>
+                                <th class="th-creator">Created by</th>
+                                <th class="th-date">Date Assigned</th>
+                                <th class="th-date">Due Date</th>
+                                <th class="th-actions text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tasksTableBody">
+                            <!-- Rows dynamically populated by JS -->
+                        </tbody>
+                    </table>
+
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <div class="empty-illustration">📋</div>
+                        <h3>No tasks found</h3>
+                        <p>No tasks match your selected category or filters. Create a new task to get started!</p>
+                        <button class="btn btn-create" id="emptyCreateBtn">+ Create New Task</button>
+                    </div>
+                </div>
+
+                <!-- Pagination Footer (Matching Mockup) -->
+                <div class="table-footer">
+                    <div class="pagination-left">
+                        <span class="pagination-label">Rows per page:</span>
+                        <div class="rows-select-wrap">
+                            <select id="rowsPerPageSelect">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="pagination-right">
+                        <span class="pagination-range" id="paginationRange">1-10 of 10</span>
+                        <div class="pagination-arrows">
+                            <button class="arrow-btn" id="prevPageBtn" title="Previous Page" disabled>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"/>
+                                </svg>
+                            </button>
+                            <button class="arrow-btn" id="nextPageBtn" title="Next Page" disabled>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- CREATE TASK MODAL -->
+    <div class="modal-backdrop" id="createTaskModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Create New Task</h2>
+                <button class="modal-close-btn" data-close-modal>&times;</button>
+            </div>
+            <form id="createTaskForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="createTitle">Task Title <span class="required">*</span></label>
+                        <input type="text" id="createTitle" placeholder="e.g., Finalize API endpoint validation" required />
+                        <span class="field-error" id="createTitleError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createDescription">Description</label>
+                        <textarea id="createDescription" rows="3" placeholder="Provide extra details or instructions..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-half">
+                            <label for="createCategory">Category / Tab</label>
+                            <select id="createCategory">
+                                <option value="accepted" selected>Accepted Tasks</option>
+                                <option value="assigned">Assigned Tasks</option>
+                                <option value="review">Review Tasks</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-half">
+                            <label for="createPriority">Priority</label>
+                            <select id="createPriority">
+                                <option value="high" selected>High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-half">
+                            <label for="createStatus">Status</label>
+                            <select id="createStatus">
+                                <option value="in_progress" selected>In progress</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-half">
+                            <label for="createCreator">Created by</label>
+                            <input type="text" id="createCreator" value="Maia" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-half">
+                            <label for="createAssignedDate">Date Assigned</label>
+                            <input type="date" id="createAssignedDate" />
+                        </div>
+                        <div class="form-group col-half">
+                            <label for="createDueDate">Due Date (Deadline)</label>
+                            <input type="date" id="createDueDate" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+                    <button type="submit" class="btn btn-create" id="submitCreateBtn">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDIT TASK MODAL -->
+    <div class="modal-backdrop" id="editTaskModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Edit Task</h2>
+                <button class="modal-close-btn" data-close-modal>&times;</button>
+            </div>
+            <form id="editTaskForm">
+                <input type="hidden" id="editTaskId" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editTitle">Task Title <span class="required">*</span></label>
+                        <input type="text" id="editTitle" required />
+                        <span class="field-error" id="editTitleError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editDescription">Description</label>
+                        <textarea id="editDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-half">
+                            <label for="editCategory">Category / Tab</label>
+                            <select id="editCategory">
+                                <option value="accepted">Accepted Tasks</option>
+                                <option value="assigned">Assigned Tasks</option>
+                                <option value="review">Review Tasks</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-half">
+                            <label for="editPriority">Priority</label>
+                            <select id="editPriority">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-half">
+                            <label for="editStatus">Status</label>
+                            <select id="editStatus">
+                                <option value="pending">Pending</option>
+                                <option value="in_progress">In progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-half">
+                            <label for="editCreator">Created by</label>
+                            <input type="text" id="editCreator" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-half">
+                            <label for="editAssignedDate">Date Assigned</label>
+                            <input type="date" id="editAssignedDate" />
+                        </div>
+                        <div class="form-group col-half">
+                            <label for="editDueDate">Due Date (Deadline)</label>
+                            <input type="date" id="editDueDate" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+                    <button type="submit" class="btn btn-create" id="submitEditBtn">Update Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- VIEW DETAILS MODAL -->
+    <div class="modal-backdrop" id="viewTaskModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Task Details</h2>
+                <button class="modal-close-btn" data-close-modal>&times;</button>
+            </div>
+            <div class="modal-body details-body">
+                <div class="detail-hero">
+                    <span id="detailPriorityBadge" class="badge"></span>
+                    <span id="detailStatusBadge" class="badge"></span>
+                    <span id="detailCategoryBadge" class="badge-neutral"></span>
+                </div>
+                <h3 id="detailTitle" class="detail-title"></h3>
+                <p id="detailDescription" class="detail-description"></p>
+
+                <div class="details-meta-grid">
+                    <div class="meta-item">
+                        <span class="meta-label">Created By</span>
+                        <span class="meta-value" id="detailCreator"></span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Date Assigned</span>
+                        <span class="meta-value" id="detailAssignedDate"></span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Due Date</span>
+                        <span class="meta-value" id="detailDueDate"></span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Overdue Status</span>
+                        <span class="meta-value" id="detailOverdue"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-close-modal>Close</button>
+                <button type="button" class="btn btn-primary" id="detailEditBtn">Edit This Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DELETE CONFIRMATION MODAL -->
+    <div class="modal-backdrop" id="deleteConfirmModal">
+        <div class="modal-card modal-card-sm">
+            <div class="modal-header">
+                <h2>Delete Task?</h2>
+                <button class="modal-close-btn" data-close-modal>&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to permanently delete this task?</p>
+                <p class="delete-task-title" id="deleteTaskTitlePreview"></p>
+                <p class="delete-warning-text">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
